@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>OOP (SET 211) – Lectures 1–6 Study Site</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f2f6f8;--card:#fff;--ink:#14222d;--mut:#51606c;--ac:#0b7a75;--acs:#d9efed;--line:#d3dde3;--code:#eaf0f3;--ok:#16794a;--bad:#b3261e;--bad-bg:#fde8e8;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 "IBM Plex Sans",system-ui,sans-serif}
+header{padding:22px 16px 6px;max-width:900px;margin:auto}
+h1{font-size:1.5rem;margin:0 0 4px;line-height:1.25}
+header p{margin:0;color:var(--mut)}
+nav{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:5;border-bottom:1px solid var(--line)}
+nav div{max-width:900px;margin:auto;display:flex;gap:6px;overflow-x:auto;padding:10px 16px}
+nav button{flex:none;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:8px 14px;border-radius:8px;font:inherit;cursor:pointer}
+nav button[aria-selected="true"]{background:var(--ac);color:var(--bg);border-color:var(--ac);font-weight:600}
+button:focus-visible,summary:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
+main{max-width:900px;margin:auto;padding:16px}
+section{display:none}section.on{display:block}
+h2{font-size:1.35rem;margin:6px 0 14px}
+details{background:var(--card);border:1px solid var(--line);border-radius:10px;margin:0 0 12px;padding:0 16px}
+summary{cursor:pointer;font-weight:600;padding:13px 0}
+details>div{padding-bottom:12px}
+li{margin:4px 0}
+code{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.88em;background:var(--code);padding:1px 5px;border-radius:4px}
+pre{background:var(--code);padding:12px;border-radius:8px;overflow-x:auto;margin:10px 0}
+pre code{padding:0;background:none}
+table{border-collapse:collapse;display:block;overflow-x:auto;margin:8px 0}
+td,th{border:1px solid var(--line);padding:6px 10px;text-align:left}
+.tip{border-left:4px solid var(--ac);background:var(--acs);padding:8px 12px;border-radius:4px;margin:10px 0}
+.q{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:0 0 12px}
+.q p{margin:0 0 8px;font-weight:600}
+.o{display:block;width:100%;text-align:left;margin:5px 0;padding:8px 12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:8px;font:inherit;cursor:pointer}
+.o.ok{border-color:var(--ok);background:var(--acs)}.o.no{border-color:var(--bad);background:var(--bad-bg)}
+.ex{margin-top:8px;color:var(--ok);display:none}.ex.on{display:block}
+.sh{border:1px solid var(--ac);background:none;color:var(--ac);padding:6px 12px;border-radius:8px;font:inherit;cursor:pointer}
+#sc{font-weight:600;color:var(--ac)}
+svg{max-width:100%;height:auto;display:block;margin:12px 0}.bx{fill:var(--acs);stroke:var(--ac);stroke-width:1.5}svg text{fill:var(--ink);font:600 13px "IBM Plex Sans",sans-serif}.cap{color:var(--mut);font-size:.92rem;margin:0 0 8px}
+:root[data-theme="light"]{--bg:#f6f9fc;--card:#fff;--ink:#1c2b3a;--mut:#5b6b7b;--ac:#1d6fd8;--acs:#e8f1fd;--line:#dbe5ef;--code:#f0f5fa;--ok:#14803c;--bad:#c62828;--bad-bg:#fde8e8;color-scheme:light}
+body{background:linear-gradient(#e3eefb,#f6f9fc 280px) no-repeat,var(--bg)}
+header{max-width:960px;padding:30px 16px 12px}h1{font-size:1.9rem}
+nav{background:var(--card);box-shadow:0 1px 8px rgba(20,60,110,.1)}nav div,main{max-width:960px}
+nav button{border-radius:999px;padding:8px 16px}nav button[aria-selected="true"]{background:var(--ac);color:#fff}
+h2{font-size:1.6rem;border-bottom:2px solid var(--line);padding-bottom:8px}
+details{border-left:5px solid var(--ac);box-shadow:0 1px 5px rgba(20,60,110,.07)}summary{font-size:1.05rem;color:var(--ac)}
+th{background:var(--acs)}
+.kp{background:#fff8e1;border:1px solid #f0d98a;border-radius:10px;padding:12px 16px;margin:0 0 14px}.kp ul{margin:6px 0 0}.ctl{margin:0 0 14px}
+body{background:var(--bg);font-size:16.5px}
+h1,h2,h3,summary,.kp b{font-family:Sora,"IBM Plex Sans",sans-serif}
+header{max-width:none;margin:0;padding:36px 16px 28px;background:linear-gradient(120deg,#1d4ed8,#0d9488)}
+.hi{max-width:960px;margin:auto}header h1{color:#fff;font-size:2.1rem;margin:0 0 10px}header p{color:#e4f0ff;max-width:62ch}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}.chips span{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.45);color:#fff;border-radius:999px;padding:4px 14px;font-size:.88rem}
+#s-L1{--ac:#1d4ed8;--acs:#e7eeff}#s-L2{--ac:#0f766e;--acs:#dcf5f1}#s-L3{--ac:#6d28d9;--acs:#efe8ff}#s-L4{--ac:#c2570a;--acs:#ffeedb}#s-L5{--ac:#be185d;--acs:#fde6f0}#s-L6{--ac:#15803d;--acs:#dff5e6}#s-Q{--ac:#0369a1;--acs:#dff1fc}
+nav button[data-id=L1]{--c:#1d4ed8}nav button[data-id=L2]{--c:#0f766e}nav button[data-id=L3]{--c:#6d28d9}nav button[data-id=L4]{--c:#c2570a}nav button[data-id=L5]{--c:#be185d}nav button[data-id=L6]{--c:#15803d}nav button[data-id=Q]{--c:#0369a1}
+nav button{color:var(--c);font-weight:600;border-color:var(--line)}nav button[aria-selected="true"]{background:var(--c);border-color:var(--c);color:#fff}
+section>h2{background:var(--acs);color:var(--ac);border:none;padding:18px 20px;border-radius:14px;margin:4px 0 16px;font-size:1.5rem}
+.kp{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--ac);border-radius:14px;padding:14px 20px;box-shadow:0 2px 10px rgba(30,60,110,.06)}.kp b{color:var(--ac)}.kp li::marker{color:var(--ac)}
+details{border-radius:14px;border:1px solid var(--line);border-left:5px solid var(--ac);padding:0 20px;box-shadow:0 2px 10px rgba(30,60,110,.07)}
+summary{color:var(--ink);font-size:1.07rem;padding:15px 0}summary::marker{color:var(--ac)}details[open]>summary{border-bottom:1px solid var(--line);margin-bottom:12px}
+code{background:var(--acs);color:var(--ink)}pre{background:var(--code);border:1px solid var(--line);border-left:4px solid var(--ac)}pre code{background:none}
+th{background:var(--acs);color:var(--ink)}tr:nth-child(even) td{background:var(--card)}
+.tip{background:var(--acs);border-left-color:var(--ac)}
+section h3{color:var(--ac);margin:28px 0 10px;font-size:1.15rem}
+.q{border-radius:14px;box-shadow:0 2px 10px rgba(30,60,110,.06)}.o{border-radius:10px;transition:background .15s}.o:hover{border-color:var(--ac);background:var(--acs)}.o.ok{background:var(--acs);border-color:var(--ok)}.o.no{background:var(--bad-bg)}
+.sh{color:var(--ac);border-color:var(--ac);background:var(--card)}.sh:hover{background:var(--acs)}
+#sc{background:var(--acs);color:var(--ac);padding:3px 14px;border-radius:999px}
+.sv{overflow-x:auto}.bx{fill:var(--acs);stroke:var(--ac);stroke-width:2}
+.source-note{color:var(--mut);font-size:.9rem;margin:0 0 14px}.feedback{min-height:1.5em}.feedback.wrong{color:var(--bad)}
+.question-tabs{display:flex;gap:8px;overflow-x:auto;margin:12px 0 18px;padding:4px 2px}
+.question-tab{flex:none;border:1px solid var(--line);border-radius:999px;background:var(--card);color:var(--ac);padding:8px 14px;font:inherit;font-weight:600;cursor:pointer}
+.question-tab[aria-selected="true"]{background:var(--ac);color:#fff;border-color:var(--ac)}
+.question-tab:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
+.question-panel{display:none}.question-panel.on{display:block}
+.question-tabs{position:sticky;top:58px;z-index:4;background:var(--bg)}
+.question-filters{display:flex;align-items:end;flex-wrap:wrap;gap:10px;padding:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;margin:12px 0}
+.question-filters label{display:grid;gap:4px;font-weight:600}.question-filters select,.search-input,.mock-count{min-height:42px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:inherit;padding:7px 10px}
+.filter-status{color:var(--mut);font-size:.92rem}
+.search-box{max-width:960px;margin:14px auto 0;padding:0 16px}
+.search-box label{display:block;font-weight:600;margin-bottom:5px}
+.search-input{width:100%;background:var(--card)}
+.search-results{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-top:8px;padding:10px}
+.search-results[hidden]{display:none}
+.search-result{display:block;width:100%;text-align:left;padding:9px 10px;border:0;border-radius:8px;background:transparent;color:var(--ink);font:inherit;cursor:pointer}
+.search-result:hover,.search-result:focus-visible{background:var(--acs)}
+.search-result small{display:block;color:var(--mut)}
+.filter-empty{padding:10px;color:var(--mut)}
+.mock-setup,.mock-results{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin:12px 0}
+.mock-question{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin:12px 0}
+.mock-option{display:block;width:100%;text-align:left;margin:5px 0;padding:8px 12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:8px;font:inherit;cursor:pointer}
+.mock-option[aria-pressed="true"]{border-color:var(--ac);background:var(--acs)}
+.mock-option.correct{border-color:var(--ok);background:var(--acs)}
+.mock-option.incorrect{border-color:var(--bad);background:var(--bad-bg)}
+.back-to-top{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:6;border:0;border-radius:999px;background:var(--ac);color:#fff;padding:11px 16px;font:inherit;font-weight:600;box-shadow:0 2px 10px rgba(0,0,0,.2);cursor:pointer}
+.back-to-top[hidden]{display:none}
+@media(max-width:600px){header h1{font-size:1.5rem}section>h2{font-size:1.2rem;padding:14px}details{padding:0 14px}}
+.lh{margin:18px 0 8px;color:var(--ac);font-family:Sora,sans-serif}</style>
+</head>
+<body>
+<header><div class="hi"><h1>Object-Oriented Analysis and Design (SET 211)</h1><p>Detailed notes for Lectures 1–6 with practice questions. Based on Dr. Mona Shouman’s slides.</p><div class="chips"><span>6 lectures</span><span>Diagrams</span><span>Worked traces</span><span>109 practice questions + tips</span></div></div></header>
+<nav><div id="tabs" role="tablist" aria-label="Study sections"></div></nav>
+<div class="search-box" id="search-box"><label for="site-search">Search lectures and questions</label><input id="site-search" class="search-input" type="search" placeholder="Search concepts, code, or answers..." autocomplete="off"><div id="search-results" class="search-results" role="status" aria-live="polite" hidden></div></div>
+<main id="m"></main>
+<button id="back-to-top" class="back-to-top" type="button" aria-label="Back to top" hidden>↑ Top</button>
+<script>
+const flow=a=>{const w=a.length*140;return `<svg viewBox="0 0 ${w} 60" role="img">${a.map((t,i)=>`<rect class="bx" x="${i*140+4}" y="10" width="112" height="40" rx="6"/><text x="${i*140+60}" y="35" text-anchor="middle">${t}</text>${i<a.length-1?`<text x="${i*140+128}" y="36" text-anchor="middle">→</text>`:""}`).join("")}</svg>`};
+const tree=(p,k)=>{const w=k.length*150,c=w/2;return `<svg viewBox="0 0 ${w} 130" role="img"><rect class="bx" x="${c-60}" y="6" width="120" height="34" rx="6"/><text x="${c}" y="28" text-anchor="middle">${p}</text>${k.map((t,i)=>{const x=i*150+75;return `<path d="M${c} 40V60H${x}V80" fill="none" stroke="var(--ac)" stroke-width="1.5"/><rect class="bx" x="${x-65}" y="80" width="130" height="34" rx="6"/><text x="${x}" y="102" text-anchor="middle">${t}</text>`}).join("")}</svg>`};
+const row=a=>{let x=4;const s=a.map(([t,w])=>{const r=`<rect class="bx" x="${x}" y="8" width="${w}" height="40"/><text x="${x+w/2}" y="33" text-anchor="middle">${t}</text>`;x+=w;return r}).join("");return `<svg viewBox="0 0 ${x+4} 56" role="img">${s}</svg>`};
+const L=[
+["L1","C++ Basics, Operators, Loops, Arrays",[
+["Worked traces",`<p><b>Reverse 12345</b> (while n != 0):</p><table><tr><th>Pass</th><th>n</th><th>n % 10</th><th>rev = rev*10 + digit</th></tr><tr><td>1</td><td>12345</td><td>5</td><td>5</td></tr><tr><td>2</td><td>1234</td><td>4</td><td>54</td></tr><tr><td>3</td><td>123</td><td>3</td><td>543</td></tr><tr><td>4</td><td>12</td><td>2</td><td>5432</td></tr><tr><td>5</td><td>1</td><td>1</td><td>54321</td></tr></table><p><b>Sum 1 to 5</b> with for: sum becomes 1, 3, 6, 10, 15. <b>Seconds to minutes</b>: 125 / 60 = 2 and 125 % 60 = 5, so 2 minutes and 5 seconds.</p>`],
+["Diagram: from source code to a running program",`<p class="cap">C++ is compiled: the whole program is translated before it runs. An interpreter would skip the object-code step and execute line by line.</p>`+flow(["Source .cpp","Compiler","Object code","Executable","Run"])+`<p>Fix compile errors (missing <code>;</code>, wrong names) first; only an error-free program produces an executable.</p>`],
+["What is C++ and how it runs",`<ul><li>General-purpose language, an extension of C, supports OOP and low-level memory control. Versions: C++11, 14, 17, 20, 23.</li><li><b>Compiler</b> (C, C++, Java): translates the whole program to machine code first, then you run the executable (fast). <b>Interpreter</b> (Python, PHP): runs line by line (slower, easier to debug).</li><li>Every statement ends with <code>;</code>. C++ is case-sensitive (<code>cout</code> ≠ <code>Cout</code>).</li></ul><pre><code>#include &lt;iostream&gt;   // I/O library
+using namespace std;    // no std:: prefix
+int main() {            // execution starts here
+    cout &lt;&lt; "Hello World!";
+    return 0;           // 0 = success
+}</code></pre><ul><li><code>cout &lt;&lt;</code> prints, <code>cin &gt;&gt;</code> reads. <code>\\n</code> or <code>endl</code> = new line. Escapes: <code>\\t</code> tab, <code>\\\\</code> backslash, <code>\\"</code> quote.</li><li>Comments: <code>//</code> single line, <code>/* */</code> multi-line. Comment <i>why</i>, not <i>what</i>.</li></ul>`],
+["Variables, types, naming",`<table><tr><th>Type</th><th>Holds</th></tr><tr><td>int</td><td>whole numbers</td></tr><tr><td>float / double</td><td>decimals (6–7 / about 15 digits)</td></tr><tr><td>char</td><td>one character <code>'A'</code></td></tr><tr><td>string</td><td>text (needs <code>#include &lt;string&gt;</code>)</td></tr><tr><td>bool</td><td>true / false</td></tr></table><p>Sizes: bool 1, char 1, float 4, double 8; the slide says int = 2 bytes, but it is usually 4 on modern compilers.</p><ul><li>Names: letters, digits, underscore; must <b>not</b> start with a digit; case-sensitive; no spaces or symbols; no keywords (<code>int</code>, <code>return</code>).</li><li>Integer division truncates: <code>125/60 = 2</code>; <code>%</code> is the remainder: <code>125%60 = 5</code>.</li><li><code>&lt;cmath&gt;</code>: <code>sqrt(64)=8</code>, <code>round(2.6)=3</code>, <code>pow(2,3)=8</code>, <code>abs(-5)=5</code>, <code>log(2)=0.693</code>.</li></ul>`],
+["Operators",`<ul><li><b>Arithmetic</b> <code>+ - * / % ++ --</code>; <b>assignment</b> <code>= += -= *= /= %=</code>; <b>comparison</b> <code>== != &gt; &lt; &gt;= &lt;=</code>; <b>logical</b> <code>&amp;&amp; || !</code>.</li><li><code>i++</code> uses the old value then increments; <code>++i</code> increments first.</li></ul><pre><code>int i = 5;
+int a = i++;  // a=5, i=6
+int b = ++i;  // i=7, b=7</code></pre><ul><li>Bitwise: <code>6 &amp; 3 = 2</code>; shifting left by 1 doubles, right by 1 halves.</li><li>Classic bug: <code>=</code> assigns, <code>==</code> compares.</li></ul>`],
+["Selection: if, ternary, switch",`<pre><code>if (time &lt; 10) cout &lt;&lt; "Good morning.";
+else if (time &lt; 20) cout &lt;&lt; "Good day.";
+else cout &lt;&lt; "Good evening.";
+string r = (time &lt; 18) ? "Good day." : "Good evening.";</code></pre><ul><li>Two separate <code>if</code>s can both run (input 10 prints HiFive and HiEven).</li><li><code>switch</code> compares one int/char against fixed cases. <b>Without <code>break</code> execution falls through</b> to the next case; <code>default</code> runs when nothing matches.</li></ul>`],
+["Loops, break, continue",`<ul><li><code>while</code>: checks the condition <b>before</b> each pass (may run 0 times). Forgetting to change the variable gives an infinite loop.</li><li><code>do { } while (cond);</code>: runs <b>at least once</b>; used for menus and input validation.</li><li><code>for (init; cond; update)</code>: use when the count is known.</li><li><code>break</code> exits the loop; <code>continue</code> skips to the next iteration. Nested loops: outer 2 × inner 3 = 6 executions.</li></ul><pre><code>// reverse a number
+int n = 12345, rev = 0;
+while (n) { rev = rev*10 + n%10; n /= 10; }  // rev = 54321</code></pre><div class="tip"><code>% 10</code> takes the last digit, <code>* 10</code> shifts the result left, <code>/ 10</code> removes the last digit.</div>`],
+["Arrays",`<ul><li>Same-type values in one variable; zero-indexed: first <code>[0]</code>, last <code>[size-1]</code>.</li><li><code>string cars[4] = {"Volvo","BMW","Ford","Mazda"}; cars[0] = "BMW";</code></li><li>Traverse with <code>for (int i=0;i&lt;5;i++)</code>. 2D arrays: <code>letters[row][col]</code> with nested loops (outer = rows).</li></ul>`]]],
+["L2","Functions",[
+["Function basics",`<p>A function has its own input, processing, output; it gives reusability and cleaner code.</p><pre><code>int addition(int a, int b) { int r = a + b; return r; }
+int main() { int z = addition(5, 3); cout &lt;&lt; z; }  // 8</code></pre><ul><li>Return type must match the returned value; <code>void</code> means nothing is returned.</li><li>A call can sit inside an expression: <code>4 + subtraction(5,3)</code>.</li></ul>`],
+["Scope",`<ul><li><b>Local</b>: inside a function/block only; destroyed when it ends. Using it from another function is a compile error.</li><li><b>Global</b>: outside all functions, visible everywhere.</li><li><b>Static local</b> (L5): keeps its value between calls; initialized once.</li></ul>`],
+["Worked traces",`<p><b>power(2,3)</b>: result = 1, then 2, 4, 8 (loop runs 3 times).</p><p><b>swap(x,y)</b> with x=10, y=20 by reference:</p><table><tr><th>Step</th><th>a (x)</th><th>b (y)</th><th>temp</th></tr><tr><td>start</td><td>10</td><td>20</td><td>-</td></tr><tr><td>temp = a</td><td>10</td><td>20</td><td>10</td></tr><tr><td>a = b</td><td>20</td><td>20</td><td>10</td></tr><tr><td>b = temp</td><td>20</td><td>10</td><td>10</td></tr></table><p><b>Overload choice</b>: operate(5,2) picks the int version (10); operate(5.0f,2.0f) picks the float version (2.5). <b>Defaults</b>: addBonus(s1) adds 10, addBonus(s2,15) adds 15.</p>`],
+["Diagram: by value vs by reference",`<svg viewBox="0 0 560 100" role="img"><text x="10" y="16">By value: f(x)</text><rect class="bx" x="10" y="26" width="90" height="36"/><text x="55" y="49" text-anchor="middle">x = 5</text><rect class="bx" x="150" y="26" width="110" height="36"/><text x="205" y="49" text-anchor="middle">a = 5 (copy)</text><text x="10" y="84">a = 100 changes only the copy</text><text x="300" y="16">By reference: f(int&amp; a)</text><rect class="bx" x="300" y="26" width="160" height="36"/><text x="380" y="49" text-anchor="middle">x and a: same 5</text><text x="300" y="84">a = 100 changes x too</text></svg>`],
+["Pass by value vs by reference",`<ul><li><b>By value</b> <code>void f(int a)</code>: copy; original unchanged.</li><li><b>By reference</b> <code>void f(int&amp; a)</code>: alias of the original; changes stick.</li></ul><pre><code>void swap(int&amp; a, int&amp; b){ int t=a; a=b; b=t; }
+void prevnext(int x,int&amp; prev,int&amp; next){ prev=x-1; next=x+1; }</code></pre><p>References let one function “return” several values.</p>`],
+["Default values and overloading",`<ul><li>Defaults go on the <b>rightmost</b> parameters: <code>int divide(int a, int b=2)</code>; <code>divide(12)=6</code>, <code>divide(20,4)=5</code>.</li><li><b>Overloading</b>: same name, different parameter count or types (compile-time polymorphism). Differing <b>only by return type is an error</b>.</li></ul><pre><code>int   operate(int a,int b){return a*b;}      // operate(5,2)=10
+float operate(float a,float b){return a/b;}  // operate(5.0f,2.0f)=2.5</code></pre>`],
+["Prototypes",`<p>A function must be declared before use. A prototype (<code>void odd(int a);</code>) promises the function exists, so you can define it after <code>main</code>. It also allows <b>mutual recursion</b>: <code>odd()</code> calls <code>even()</code> and back.</p><p>Examples to know: factorial (<code>5!=120</code>, <code>0!=1</code>), power, getGrade (90/80/70/60), sumDigits, isEven (<code>n%2==0</code>), <code>addBonus(int&amp; score,int bonus=10)</code>.</p>`]]],
+["L3","Pointers and Structures",[
+["Worked trace: two pointers, one variable",`<table><tr><th>Statement</th><th>firstvalue</th><th>secondvalue</th><th>p1 points to</th></tr><tr><td>start</td><td>5</td><td>15</td><td>firstvalue</td></tr><tr><td>*p1 = 10;</td><td>10</td><td>15</td><td>firstvalue</td></tr><tr><td>*p2 = *p1;</td><td>10</td><td>10</td><td>firstvalue</td></tr><tr><td>p1 = p2;</td><td>10</td><td>10</td><td>secondvalue</td></tr><tr><td>*p1 = 20;</td><td>10</td><td>20</td><td>secondvalue</td></tr></table><div class="tip">p2 points to secondvalue the whole time. Copying a pointer copies the address; copying *p copies the value.</div>`],
+["Diagram: a pointer holds an address",`<svg viewBox="0 0 420 90" role="img"><rect class="bx" x="10" y="20" width="110" height="40"/><text x="65" y="45" text-anchor="middle">num = 25</text><text x="65" y="78" text-anchor="middle">address 0x4a00</text><rect class="bx" x="270" y="20" width="130" height="40"/><text x="335" y="45" text-anchor="middle">p = 0x4a00</text><path d="M270 40H134" stroke="var(--ac)" stroke-width="2"/><path d="M122 40l10-6v12z" fill="var(--ac)"/><text x="335" y="78" text-anchor="middle">int *p = &amp;num;</text></svg><p><code>p</code> shows the address 0x4a00, <code>*p</code> shows 25, and <code>*p = 20;</code> changes <code>num</code>.</p>`],
+["Pointers",`<ul><li><code>&amp;x</code> = address of x; a <b>pointer</b> stores an address: <code>int *p = &amp;num;</code>. <code>*p</code> = value at that address.</li><li>Types must match: <code>float c; int *p = &amp;c;</code> is an error.</li></ul><pre><code>int *p = &amp;num;  cout &lt;&lt; p;   // address
+cout &lt;&lt; *p;  *p = 20;     // value / write through pointer
+p1 = p2;      // copies ADDRESS
+*p1 = *p2;    // copies VALUE</code></pre><ul><li>Initialize with <code>nullptr</code> (preferred), <code>&amp;var</code>, or an array name.</li></ul>`],
+["Pointer bugs",`<ul><li>Uninitialized pointer (<code>int *p; *p=12;</code>) writes to a random address, crash.</li><li>Copying a garbage pointer spreads the garbage.</li><li>Dereferencing <code>nullptr</code> gives a segfault; check <code>if (p != nullptr)</code>.</li></ul>`],
+["Pointers and arrays",`<ul><li>An array is not a pointer. In most expressions its name converts to a pointer to element 0; the array itself cannot be reassigned, so <code>vals = vals + 1;</code> is illegal, while a separate pointer such as <code>valptr = valptr + 1;</code> can move.</li><li><code>vals[i] == *(vals+i)</code>. <code>p++</code> moves to the next element.</li></ul><pre><code>int size; cin &gt;&gt; size;
+int* arr = new int[size];     // heap array
+for (int i=0;i&lt;size;i++) cin &gt;&gt; arr[i];
+delete[] arr;                 // brackets required</code></pre>`],
+["Diagram: structure memory layout",`<p class="cap">inv_type: members sit one after another (40 + 8 + 8 + 4 + 4 = 64 bytes).</p>`+row([["item (40 B)",250],["cost 8",90],["retail 8",90],["on_hand 4",90],["load_time 4",100]])+`<p><code>x</code> and <code>y</code> of type inv_type each own a separate 64-byte block, so changing <code>x.cost</code> never affects <code>y.cost</code>.</p>`],
+["Structures",`<ul><li>A <code>struct</code> groups members of <b>different types</b>; the closing <code>};</code> semicolon is mandatory; declaring it allocates no memory until you define a variable.</li><li>Dot <code>.</code> for variables, arrow <code>-&gt;</code> for pointers: <code>ptr-&gt;name == (*ptr).name</code>.</li><li>Members are contiguous; size ≈ sum of members (<code>inv_type</code> = 64 bytes), maybe plus padding; use <code>sizeof</code>.</li><li><code>b = a;</code> copies all members (independent copies; shallow if pointers inside).</li></ul><pre><code>struct Person { string name; int age; };
+Person john = {"John", 25};
+Person students[3];  students[i].name = "Ali";</code></pre>`],
+["Structs with functions, nesting",`<ul><li>Pass by value (copy), by reference <code>&amp;</code> (modifies original, efficient), by <code>const &amp;</code> (efficient and read-only); a function can return a struct.</li><li><b>Nested</b>: define the inner struct first; access with chained dots <code>e1.emp_address.city</code>, <code>s.dob.year</code>; initialize with nested braces.</li><li>Arrays inside structs: <code>s.grades[0] = 90;</code></li></ul>`]]],
+["L4","Introduction to OOP",[
+["Paradigms",`<ul><li><b>Imperative</b> (tell the machine <i>how</i>): procedural/structured and object-oriented.</li><li><b>Declarative</b> (declare the <i>result</i>): functional, logic, mathematical.</li><li>A language can belong to several paradigms.</li></ul>`],
+["Structured programming",`<ul><li>Data and operations are separate; the <b>function</b> is the main unit. Built from block, selection, iteration, nesting; top-down design.</li><li><b>Pros</b>: readable, maintainable, debuggable. <b>Cons</b>: hard to reuse (depends on globals/headers), poor mapping to real-life problems, complexity explodes in large projects, so OOP was created.</li></ul>`],
+["Without OOP vs with OOP",`<pre><code>// Without OOP: scattered data
+string names[100]; int ids[100]; double gpas[100];
+dropObject(ids[i], subject);
+
+// With OOP: one class bundles everything
+Student s1("Ahmed", 1001, 3.8);
+s1.dropSubject("CS201");</code></pre><p>Adding a student means creating one object instead of updating every array.</p>`],
+["Diagram: one class, many objects",`<p class="cap">The class is the blueprint; every object has its own data but shares the methods.</p>`+tree("class Student",["Ali: GPA 3.8","Sara: GPA 2.9","John: GPA 3.5"])],
+["OOP and its building blocks",`<ul><li>OOP bundles data and operations in one structure; the <b>class</b> is the main unit; objects communicate by sending messages (method calls). First step: data modeling.</li><li><b>Class</b> = blueprint; <b>Attributes</b> = what it has (state); <b>Methods</b> = what it does; <b>Object</b> = an instance with its own data.</li></ul><div class="tip">Design rule: “what does it have?” gives attributes; “what can it do?” gives methods. Keep attributes private.</div><table><tr><th></th><th>Structured</th><th>OOP</th></tr><tr><td>Focus</td><td>functions</td><td>objects/classes</td></tr><tr><td>Data</td><td>separate</td><td>bundled</td></tr><tr><td>Reuse</td><td>limited</td><td>high (inheritance)</td></tr><tr><td>Security</td><td>globally accessible</td><td>hidden (encapsulation)</td></tr><tr><td>Scale</td><td>breaks down</td><td>scales well</td></tr></table>`],
+["Benefits and examples",`<ul><li>Ease of design (think in the problem space), ease of maintenance (changes are isolated), reusable tested classes.</li><li>Examples: Student, Professor, Soccer game (Player, Ball, Referee, ScoreBoard), Hospital system (Medical staff: Doctor, Nurse; Non-medical: HR, IT, Front desk).</li></ul>`]]],
+["L5","Pillars of OOP, Classes and Objects",[
+["Scope and ::",`<ul><li>Local, global, and <code>static</code> (keeps value between calls).</li><li>Scope operator reaches the global when a local hides it:</li></ul><pre><code>int x = 50;
+int main(){ int x = 10; cout &lt;&lt; x &lt;&lt; ::x; }  // 10 then 50</code></pre>`],
+["Worked trace: Vector offset",`<table><tr><th>Step</th><th>start</th><th>end</th></tr><tr><td>set values</td><td>(2,3)</td><td>(4,6)</td></tr><tr><td>offset(1,2)</td><td>(3,5)</td><td>(5,8)</td></tr></table><p>Printed twice: <code>(2,3) -&gt; (4,6)</code> then <code>(3,5) -&gt; (5,8)</code>. One method call moved both points.</p>`],
+["Diagrams: pillars and inheritance",tree("OOP pillars",["Encapsulation","Abstraction","Inheritance","Polymorphism"])+`<p class="cap">Inheritance: Male and Female get Walk(), Talk(), See(), Eat() from HumanBeing.</p>`+tree("HumanBeing",["Male","Female"])],
+["The four pillars",`<ul><li><b>Inheritance</b>: child (derived) class gets the parent’s (base) members: code reuse, logical hierarchy, easy maintenance.</li><li><b>Abstraction</b>: hide the <i>how</i>, show the <i>what</i> (you call <code>rect.area()</code> without knowing the formula).</li><li><b>Encapsulation</b>: bind data and methods in a class and hide data. <code>public</code> anywhere; <code>private</code> only inside the class; <code>protected</code> class and derived classes.</li><li><b>Polymorphism</b>: one interface, many forms. Compile-time = overloading; run-time = virtual functions.</li></ul>`],
+["Classes and objects",`<ul><li>A class is an expanded struct (data <b>and</b> functions). Class = type, object = variable (<code>Student paul;</code>). Objects have their own data but share methods.</li><li>Class members are <b>private by default</b> (struct: public). Semicolon after <code>}</code> is mandatory.</li></ul><pre><code>class CRectangle {
+    int x, y;                 // private
+public:
+    void set_values(int a,int b){ x=a; y=b; }
+    int area(){ return x*y; }
+};
+CRectangle rect; rect.set_values(3,4);
+cout &lt;&lt; rect.area();         // 12</code></pre>`],
+["Nested classes, methods, passing objects",`<ul><li>Nested: <code>class Vector { public: Point start, end; };</code> access <code>vec.start.x</code>. <code>vec2 = vec1;</code> copies all fields.</li><li>Pass an object by value = copy (changes lost); by reference = original changes.</li><li>Methods see the fields directly: <code>offset(dx,dy){ start.x+=dx; end.x+=dx; start.y+=dy; end.y+=dy; }</code>. Start (2,3), end (4,6), <code>offset(1,2)</code> gives (3,5) to (5,8).</li><li>Dynamic array of structs: <code>Product *c = new Product[3]; (c+i)-&gt;name; delete[] c;</code></li></ul>`]]],
+["L6","Constructors and Destructors",[
+["Constructors",`<ul><li>Special function called during object initialization; same name as the class; <b>no return type</b> (not even void). Constructors are not inherited automatically; C++11 and later can inherit them explicitly with <code>using Base::Base;</code>. A constructor is not called like an ordinary member function on an existing object.</li></ul><pre><code>class CRectangle { int width, height;
+public: CRectangle(int a,int b);
+        int area(){ return width*height; } };
+CRectangle::CRectangle(int a,int b){ width=a; height=b; }
+CRectangle rect(3,4);   // area 12</code></pre>`],
+["Default constructor and overloading",`<ul><li>No constructor written: compiler gives a default one. Write <b>any</b> constructor: it disappears; define both if you need both.</li><li>Write <code>CRectangle rectb;</code>, not <code>CRectangle rectb();</code> (that declares a function).</li><li>Constructors can be overloaded and have defaults: <code>Circle(double r=1.0, string c="red")</code>; <code>Circle c3;</code> gives radius 1, red.</li><li>Types: default, parameterized, copy <code>A(const A&amp; obj)</code>.</li></ul>`],
+["Worked traces",`<table><tr><th>BankAccount step</th><th>balance</th></tr><tr><td>BankAccount("Alice",1000)</td><td>1000</td></tr><tr><td>deposit(500)</td><td>1500</td></tr><tr><td>withdraw(200)</td><td>1300</td></tr></table><p>At the end of main the destructor prints <code>Account closed for Alice</code>.</p><table><tr><th>Employee call</th><th>Result</th></tr><tr><td>e.calculatetax() with salary 4800</td><td>240</td></tr><tr><td>e1.calculatetax() with salary 50000</td><td>2500</td></tr><tr><td>e1.calculatetax(6000)</td><td>300</td></tr><tr><td>e1.calculatetax(7000)</td><td>350</td></tr></table>`],
+["Diagrams: object lifecycle",`<p class="cap">Create, use, destroy. Constructor and destructor run automatically.</p>`+flow(["Object created","Constructor","Use methods","Destructor","Memory freed"])+`<p class="cap">Marks m1; Marks m2; are destroyed in reverse order (LIFO).</p>`+flow(["Create m1","Create m2","Destroy m2","Destroy m1"])],
+["Destructors",`<ul><li><code>~ClassName()</code>; no parameters, no return, <b>only one</b> per class. Runs when a local object’s scope ends, when <code>delete</code> is used, or at program end (globals).</li><li>Must release resources owned by the object (for example, <code>delete[]</code> memory allocated with <code>new[]</code>) to avoid leaks.</li><li>Several objects are destroyed in <b>reverse order</b> (LIFO): <code>Marks m1; Marks m2;</code> destroys m2 then m1.</li></ul>`],
+["Default arguments (rules)",`<ul><li>Specified in the <b>prototype only</b>, not repeated in the definition.</li><li>Only on rightmost parameters; required parameters come first.</li></ul><p><code>int sum(int n1,int n2,int n3=0,int n4=0,int n5=0);</code> <code>sum(1,1)=2</code>; <code>sum(1)</code> is an error.</p>`],
+["Encapsulation, getters and setters",`<ul><li>Keep data <code>private</code>; expose public functions. Golden rule: do not make data public without a very good reason.</li><li><b>Getter</b> <code>getXxx()</code> reads without modifying. <b>Setter</b> <code>setXxx()</code> validates before changing.</li></ul><pre><code>void setRadius(double r){ if (r &gt; 0) radius = r; else cout &lt;&lt; "Invalid radius!"; }</code></pre>`],
+["Common mistakes",`<ul><li><code>rect.CRectangle(3,4);</code> (explicit call), <code>void CRectangle(...)</code> (return type), <code>CRectangle r();</code>, missing <code>delete</code>, uninitialized members, trying to overload the destructor, missing <code>;</code> after a class.</li></ul>`]]]];
+const KP={L1:["C++ is compiled; every statement ends with ; and names are case-sensitive.","Integer division truncates (7/2 = 3); % gives the remainder.","i++ uses then increments; ++i increments then uses; = assigns, == compares.","switch needs break; do/while runs at least once.","Arrays are zero-indexed: the last index is size-1."],L2:["Declare before use: a function defined after main needs a prototype.","By value copies; by reference (&) changes the original.","Defaults go on the rightmost parameters, in the prototype only.","Overload by parameters, never by return type."],L3:["& gives an address; * gives the value at an address.","Never dereference an uninitialized or null pointer.","An array is not a pointer; its name usually converts to a pointer to element 0, and the array itself cannot be reassigned. Pair new[] with delete[].","struct: different member types, semicolon after }, . for variables and -> for pointers."],L4:["Structured: data and functions are separate; OOP bundles them in classes.","Building blocks: class, attributes, methods, objects.","Benefits: easier design, maintenance and reuse."],L5:["Four pillars: encapsulation, abstraction, inheritance, polymorphism.","Class members are private by default; semicolon after }.","Each object has its own data and shares the methods.","Pass objects by reference to keep changes."],L6:["Constructor: same name, no return type; invoked during initialization, not like an ordinary member function.","Writing any constructor removes the compiler default one.","Destructor: ~Name(), one per class, reverse order; release resources the object owns.","Use getters and setters (with validation) for private data."]};
+const M=`Which statement about C++ is correct?~Executed line by line by an interpreter~Whole program is translated by a compiler before it runs~Cannot be used for OOP~No relation to C~1
+Output of cout << 7 / 2; (both int)?~3.5~4~3~2~2
+What does 17 % 5 evaluate to?~3~2~3.4~12~1
+Which is a valid variable name?~2total~my-var~_total~return~2
+After int i=5; int a=i++; int b=++i; the values of a, b, i are:~5, 7, 7~6, 7, 7~5, 6, 7~6, 6, 6~0
+Which loop is guaranteed to run its body at least once?~for~while~do/while~nested for~2
+In a switch, what happens if a case has no break?~Compile error~Execution falls through to the next case~The program ends~default is skipped forever~1
+Which operator is the logical AND?~&~&&~||~!~1
+For int arr[5]; the last valid index is:~5~6~4~0~2
+What does continue do inside a loop?~Ends the program~Exits the loop~Skips the rest of the current iteration~Resets the counter to 0~2
+Main purpose of a function prototype?~Execute the function~Tell the compiler about a function before it is defined/used~Make variables global~Print the return value~1
+In void f(int& a), the parameter a is:~A copy~A pointer constant~An alias of the original variable~A global variable~2
+Given int divide(int a,int b=2){return a/b;}, divide(12) returns:~12~6~2~Compile error~1
+Which pair is a valid overload?~int f(int) and float f(int)~int f(int) and int f(int,int)~void f() and void f()~int f(int a) and int f(int b)~1
+Default parameter values must be placed:~On the leftmost parameters~On the rightmost parameters~Anywhere~Only on void functions~1
+A local variable declared inside a function is accessible:~In the whole program~Only inside that function/block~In all functions that call it~In every file~1
+A static local variable:~Is recreated on every call~Keeps its value between calls and is initialized once~Is global~Cannot be changed~1
+After void change(int a){a=100;} and int x=5; change(x); x is:~100~5~0~Undefined~1
+Which technique lets a function “return” several results?~Pass by value~Reference parameters~Global constants only~Overloading on return type~1
+&x gives:~Its value~Its memory address~Its size~Its type~1
+After int num=25; int *p=&num; *p=20; num is:~25~20~The address of num~0~1
+Dereferencing a nullptr causes:~Returns 0~Returns address 0~Undefined behavior / segmentation fault~The compiler fixes it~2
+For int vals[]={4,7,11}; *(vals+1) equals:~4~7~11~Address of vals~1
+Which code is invalid?~int n; int *p=&n;~float c; int *p=&c;~int *p=nullptr;~int a[10], *q=a;~1
+To access a member through a pointer to a struct you use:~.~::~->~&~2
+What distinguishes structures from arrays?~Arrays can mix types~Structures can group members of different types~Structures cannot contain ints~Arrays cannot store floats~1
+The correct way to free int *arr = new int[10]; is:~delete arr;~delete[] arr;~free(arr);~arr = nullptr;~1
+Which expression accesses the city of e1 with member emp_address?~e1->emp_address->city~e1.emp_address.city~e1::city~emp_address.e1.city~1
+When a structure is passed to a function by value:~The function receives a copy~The original is always modified~Only the first member is passed~It becomes an array~0
+The array name vals, when used in most expressions, is best described as:~A modifiable pointer variable~An array that converts to a pointer to its first element~An integer~A struct~1
+In structured programming the main unit is the __; in OOP it is the __.~class / function~function / class~object / array~block / pointer~1
+Which is a disadvantage of structured programming?~Easy to read~Hard to reuse and hard to map to real-life problems at scale~Supports blocks~Supports top-down design~1
+The four building blocks of OOP are:~Classes, Attributes, Methods, Objects~Encapsulation, Abstraction, Inheritance, Polymorphism~Loops, Arrays, Pointers, Structs~Compiler, Linker, Loader, Debugger~0
+Class and object relate like:~House and blueprint (object = blueprint)~Blueprint and a house built from it (class = blueprint)~Variable and type (class = variable)~Function and loop~1
+“What does the entity have?” gives its:~Methods~Attributes~Constructors~Prototypes~1
+Which paradigms are imperative?~Functional and Logic~Procedural and Object-Oriented~Mathematical only~Logic and Mathematical~1
+Which pillar hides implementation details and shows only what is necessary?~Inheritance~Polymorphism~Abstraction~Overloading~2
+Binding data and methods in one class and restricting access to the data is:~Encapsulation~Inheritance~Recursion~Polymorphism~0
+Which is compile-time polymorphism?~Virtual functions~Function overloading~Pointers~Destructors~1
+Default access of members of a C++ class:~public~protected~private~static~2
+Purpose of ::x when a local x hides a global x?~Declares a new variable~Accesses the global x~Deletes x~Accesses a class member~1
+A protected member is accessible:~Everywhere~Only inside the class~Inside the class and its derived classes~Only in main()~2
+Which is true about a class and its objects?~All objects share the same data values~Each object has its own data and they share the same methods~Methods are copied for every object~Objects exist only logically~1
+When an object is passed by reference:~A copy is made~Changes inside persist in the original~The function cannot read it~It becomes global~1
+In inheritance, HumanBeing is the __ class and Male the __ class.~derived / base~base (parent) / derived (child)~static / dynamic~private / public~1
+Which statement about constructors is false?~Same name as the class~No return type, not even void~Called automatically at creation~Can be called again explicitly after creation~3
+The destructor of class Car is named:~Car()~¬Car()~delete Car()~Car::free()~1
+When is the destructor of an object created with new called?~At program start~When delete is applied~Right after the constructor~Never~1
+For Marks m1; Marks m2; in one block, destruction order is:~m1 then m2~m2 then m1~Random~Only m1~1
+CRectangle rectb(); means:~Default-constructed object~Declares a function rectb returning a CRectangle~Calls the destructor~Creates a pointer~1
+If you define only CRectangle(int,int), what happens to CRectangle r;?~Works with a default constructor~Compile error (no default constructor)~Creates garbage silently~Calls the destructor~1
+Default argument values are specified:~In the definition only~In the prototype only~In both~Nowhere~1
+Why use a setter instead of a public data member?~Setters are faster~A setter can validate data~Public members are not allowed~Setters allocate memory~1
+Signature of a copy constructor of class A:~A(int x)~A()~A(const A& obj)~¬A()~2
+Real purpose of a destructor in a class that uses new in its constructor:~Print messages~Release the allocated memory and avoid leaks~Create objects~Overload operators~1`.split("\n").map(l=>{const p=l.split("~");return[p[0],p.slice(1,5).map(x=>x.replace("¬","~")),+p[5]]});
+const E=[
+["int 2num = 5;\ncout << \"Value: \" << 2num\nreturn 0;","Names cannot start with a digit (num2) and the cout statement lacks a semicolon."],
+["int i = 0;\nwhile (i < 5) {\n  cout << i << \" \";\n}","i is never incremented: infinite loop. Add i++; in the body."],
+["int day = 6;\nswitch (day) {\n  case 6: cout << \"Sat\";\n  case 7: cout << \"Sun\"; break;\n  default: cout << \"Weekday\";\n}","Missing break after case 6 causes fall-through (prints SatSun). Use case 6: cout << \"Sat\"; break;"],
+["int x = 3;\nif (x = 5) { cout << \"x is five\"; }","= assigns (always true here). Use if (x == 5)."],
+["cout << square(4);\n...\nint square(int n){ return n*n; }  // after main","square() is used before it is declared. Add the prototype int square(int n); before main."],
+["void greet(string name = \"Guest\", int times){ }","A default comes before a required parameter. Use void greet(int times, string name = \"Guest\")."],
+["int getValue(int a){ return a; }\nfloat getValue(int a){ return a*1.5; }","Overloading by return type only is illegal. Change the parameter list or the name."],
+["int myFunc(){ int x = 10; return x; }\nint main(){ myFunc(); cout << x; }","x is local to myFunc. Capture the result: int x = myFunc();"],
+["void swap(int a, int b){ int temp=a; a=b; b=temp; }\nswap(x, y);  // expected 20 10","Passed by value, so only copies swap. Use references: void swap(int& a, int& b)."],
+["float cost = 4.5;\nint *p = &cost;","Type mismatch. Use float *p = &cost;"],
+["int *p;\n*p = 12;\ncout << *p;","Uninitialized pointer. Point it at a valid variable first: int v; int *p = &v;"],
+["struct Person { string name; int age; }\nPerson p; Person *ptr = &p;\nptr.name = \"Ali\";","Missing ; after the struct's }. ptr is a pointer, so use ptr->name = \"Ali\";"],
+["int *arr = new int[size];\n...\ndelete arr;","Arrays allocated with new[] need delete[] arr;"],
+["int vals[] = {4,7,11};\nvals = vals + 1;","An array is not a pointer and cannot be reassigned. In most expressions its name converts to a pointer to the first element. Use int *p = vals; p = p + 1; or *(vals+1)."],
+["class Circle { double radius; public:\n  double getArea(){...} };\nCircle c; c.radius = 5;","radius is private by default. Add a constructor or a setter."],
+["class CRectangle { ... public:\n  void CRectangle(int a,int b){...} };\nCRectangle rect(3,4);","A constructor has no return type, not even void. Remove void."],
+["CRectangle rectb();\nrectb.area();","That declares a function. Write CRectangle rectb; (and make sure a default constructor exists)."],
+["CRectangle rect(3,4);\nrect.CRectangle(5,6);","A constructor is not called like an ordinary member function on an existing object. Initialize another object or use a setter."],
+["class Car { public: string brand;\n  Car(string b){ brand=b; } };\nCar c1(\"BMW\"); Car c2;","A parameterized constructor removes the default one, so Car c2; fails. Add Car(){ brand=\"Unknown\"; } or a default argument."],
+["class Buffer { int *data; public:\n  Buffer(int n){ data = new int[n]; } };","Memory leak: add ~Buffer(){ delete[] data; }"],
+["int sum(int a,int b,int c=0);\nint sum(int a,int b,int c=0){ return a+b+c; }\ncout << sum(1);","The default is repeated in the definition (prototype only), and sum(1) omits the required b. Call sum(1,2)."],
+["struct inventory { int on_hand; double cost; };\ninventory x;\nx->on_hand = 10;","x is not a pointer; use x.on_hand = 10;"]];
+const O=[
+["int x=10,y=3;\ncout << x/y << \" \" << x%y << \" \" << (double)x/y;","3 1 3.33333"],
+["int i=5; int a=i++; int b=++i;\ncout << a << \" \" << b << \" \" << i;","5 7 7"],
+["for(int i=0;i<10;i++){\n if(i==3) continue;\n if(i==7) break;\n cout << i << \" \";\n}","0 1 2 4 5 6"],
+["for(int i=1;i<=3;i++){\n for(int j=1;j<=i;j++) cout << \"*\";\n cout << endl;\n}","*\n**\n***"],
+["int n=1234, rev=0;\nwhile(n){ rev = rev*10 + n%10; n /= 10; }\ncout << rev;","4321"],
+["int day=2;\nswitch(day){\n case 1: cout<<\"A\";\n case 2: cout<<\"B\";\n case 3: cout<<\"C\"; break;\n case 4: cout<<\"D\";\n default: cout<<\"E\";\n}","BC"],
+["void f(int a,int& b){ a+=10; b+=10; }\nint x=1,y=1; f(x,y);\ncout << x << \" \" << y;","1 11"],
+["int calc(int a,int b=3,int c=2){ return a*b+c; }\ncout << calc(2) << \" \" << calc(2,4) << \" \" << calc(2,4,5);","8 10 13"],
+["void show(int x){cout<<\"int \";}\nvoid show(double x){cout<<\"double \";}\nvoid show(char x){cout<<\"char \";}\nshow(5); show(5.5); show('a');","int double char"],
+["void counter(){ static int c=0; c++; cout << c << \" \"; }\ncounter(); counter(); counter();","1 2 3"],
+["int a=5,b=15; int *p1=&a,*p2=&b;\n*p1=10; *p2=*p1; p1=p2; *p1=20;\ncout << a << \" \" << b;","10 20"],
+["int v[]={4,7,11,15}; int *p=v; p++;\ncout << *p << \" \" << *(p+2) << \" \" << v[3];","7 15 15"],
+["struct Point{int x;int y;};\nPoint p={3,4}; Point q=p; q.x=10;\ncout << p.x << \" \" << q.x << \" \" << q.y;","3 10 4"],
+["struct S{int a;int b;}; S s={1,2}; S *ptr=&s;\nptr->a += 5; (*ptr).b *= 3;\ncout << s.a << \" \" << s.b;","6 6"],
+["class Box{ int w,h; public:\n Box(int a,int b){w=a;h=b;}\n int area(){return w*h;} };\nBox b1(2,5), b2(3,3);\ncout << b1.area() + b2.area();","19"],
+["class T{ int id; public:\n T(int i){id=i;cout<<\"C\"<<id<<\" \";}\n ~T(){cout<<\"D\"<<id<<\" \";} };\nint main(){ T a(1); T b(2); cout<<\"Main \"; }","C1 C2 Main D2 D1"],
+["// default CRectangle() makes 5x5\nCRectangle r1(3,4); CRectangle r2;\ncout << r1.area() << \" \" << r2.area();","12 25"],
+["// Circle(double r=1.0, string c=\"red\")\nCircle a(2.0,\"blue\"), b(3.0), c;\ncout << a.getRadius() << a.getColor() << \" \"\n     << b.getRadius() << b.getColor() << \" \"\n     << c.getRadius() << c.getColor();","2blue 3red 1red"],
+["// setRadius rejects r <= 0 with \"Invalid radius!\"\nCircle c; c.setRadius(5); c.setRadius(-2);\ncout << c.getRadius();","Invalid radius!5"],
+["int x=50;\nint main(){ int x=10; cout << x << \" \" << ::x;\n { int x=99; cout << \" \" << x << \" \" << ::x; } }","10 50 99 50"],
+["// Vector with start(2,3), end(4,6)\nvec.offset(1,2);\nvec.print();","(3,5) -> (5,8)"],
+["class C{public:int v;};\nvoid byVal(C c){c.v=100;}\nvoid byRef(C& c){c.v=200;}\nC o; o.v=1;\nbyVal(o); cout << o.v << \" \";\nbyRef(o); cout << o.v;","1 200"],
+["int *arr=new int[3];\nfor(int i=0;i<3;i++) *(arr+i)=(i+1)*10;\nfor(int i=0;i<3;i++) cout << arr[i] << \" \";\ndelete[] arr;","10 20 30"],
+["struct Book{string title;float price;};\nBook b[3]={{\"A\",45.0},{\"B\",35.5},{\"C\",55.0}};\nfloat mp=b[0].price; string mt=b[0].title;\nfor(int i=1;i<3;i++)\n if(b[i].price>mp){mp=b[i].price;mt=b[i].title;}\ncout << mt << \" \" << mp;","C 55"]];
+
+const C=[
+["Reverse the digits of a positive integer (while loop and %).",`#include <iostream>
+using namespace std;
+int main() {
+    int n, rev = 0;
+    cout << "Enter a positive integer: ";
+    cin >> n;
+    while (n > 0) {
+        rev = rev * 10 + n % 10;   // append last digit
+        n /= 10;                   // drop last digit
+    }
+    cout << "Reversed: " << rev;
+    return 0;
+}`],
+["bool isPrime(int n); print the primes from 1 to 20.",`bool isPrime(int n) {
+    if (n < 2) return false;
+    for (int i = 2; i < n; i++)
+        if (n % i == 0) return false;
+    return true;
+}
+int main() {
+    for (int i = 1; i <= 20; i++)
+        if (isPrime(i)) cout << i << " ";
+}
+// Output: 2 3 5 7 11 13 17 19`],
+["odd() and even() calling each other, with prototypes.",`void odd(int a);    // prototypes
+void even(int a);
+int main() {
+    int i;
+    do {
+        cout << "Type a number (0 to exit): ";
+        cin >> i;
+        odd(i);
+    } while (i != 0);
+}
+void odd(int a) {
+    if (a % 2 != 0) cout << "Number is odd." << endl;
+    else even(a);
+}
+void even(int a) {
+    if (a % 2 == 0) cout << "Number is even." << endl;
+    else odd(a);
+}`],
+["void prevnext(int x, int& prev, int& next) using references.",`void prevnext(int x, int& prev, int& next) {
+    prev = x - 1;
+    next = x + 1;
+}
+int main() {
+    int x = 100, y, z;
+    prevnext(x, y, z);
+    cout << "Previous=" << y << ", Next=" << z;  // 99, 101
+}`],
+["int sumDigits(int n), e.g. sumDigits(472) = 13.",`int sumDigits(int n) {
+    int sum = 0;
+    while (n != 0) {
+        sum += n % 10;
+        n /= 10;
+    }
+    return sum;
+}`],
+["Dynamic array: ask for the size, new, read, print, delete[].",`int main() {
+    int size;
+    cout << "Enter the size of the array: ";
+    cin >> size;
+    int* arr = new int[size];
+    for (int i = 0; i < size; ++i) cin >> arr[i];
+    for (int i = 0; i < size; ++i) cout << arr[i] << " ";
+    cout << endl;
+    delete[] arr;      // brackets required
+    return 0;
+}`],
+["BankAccount: private owner and balance, two constructors, deposit, withdraw (reject if insufficient), getBalance, destructor message.",`class BankAccount {
+private:
+    string owner;
+    double balance;
+public:
+    BankAccount() { owner = "Unknown"; balance = 0.0; }
+    BankAccount(string o, double b) { owner = o; balance = b; }
+    void deposit(double amount) { balance += amount; }
+    void withdraw(double amount) {
+        if (amount <= balance) balance -= amount;
+        else cout << "Insufficient funds!";
+    }
+    double getBalance() { return balance; }
+    ~BankAccount() { cout << "Account closed for " << owner; }
+};
+// Alice 1000, deposit 500, withdraw 200 -> 1300`],
+["Circle: private radius, constructor with a default value, getter, setter that rejects negative values.",`class Circle {
+private:
+    double radius;
+public:
+    Circle(double r = 1.0) { radius = (r > 0) ? r : 1.0; }
+    double getRadius() { return radius; }
+    void setRadius(double r) {
+        if (r > 0) radius = r;
+        else cout << "Invalid radius!";
+    }
+    double getArea() { return radius * radius * 3.1416; }
+};`]];
+const TIPS=["= vs ==, missing ;, missing break, i++ vs ++i, integer division (7/2 = 3) and % as remainder are the classic output/error traps.","Arrays: zero-indexed, last index is size-1; an array is not a pointer, though its name usually converts to a pointer to the first element; new[] pairs with delete[].","Pointers: & = address, * = value at the address; p1 = p2 copies the address, *p1 = *p2 copies the value; never dereference an uninitialized or null pointer; -> for pointers, . otherwise.","Structs: ; after } is mandatory; no memory until a variable exists; members can have different types; nested access uses chained dots.","Functions: declare before use (prototype); defaults on the rightmost parameters and only in the prototype; overload by parameters, never by return type; by value = copy, by reference = original.","Classes: private by default (struct is public); ; after }; each object has its own data but shares methods.","Constructors: same name as the class, no return type, invoked during initialization (not as a regular member call); ClassName obj; (no parentheses); any constructor removes the compiler default one.","Destructors: ~ClassName(), no parameters, no return, one per class, reverse order; release resources owned by the object.","Pillars: Encapsulation (bundle and hide), Abstraction (hide the how), Inheritance (reuse via parent/child), Polymorphism (one name, many forms: overloading = compile-time, virtual = run-time).","Course-slide details to verify against the original deck: int size, input-validation examples, and shift examples can depend on the compiler or intended input; this study copy does not include slide numbers."];
+const GR=[["L1",1,10],["L2",11,19],["L3",20,30],["L4",31,36],["L5",37,45],["L6",46,55]];
+const ERROR_LECTURES=["L1","L1","L1","L1","L2","L2","L2","L2","L2","L3","L3","L3","L3","L3","L5","L6","L6","L6","L6","L6","L2","L3"];
+const OUTPUT_LECTURES=["L1","L1","L1","L1","L1","L1","L2","L2","L2","L2","L3","L3","L3","L3","L5","L6","L6","L6","L6","L5","L5","L2","L3","L3"];
+const CODING_LECTURES=["L1","L1","L2","L2","L2","L3","L6","L6"];
+const MCQ_EXPLANATIONS=[
+"A compiler translates C++ source into a program before execution; it is not normally interpreted line by line.",
+"Both operands are integers, so integer division discards the fractional part: 7 / 2 is 3.",
+"The remainder operator returns what is left after division: 17 = 3 × 5 + 2.",
+"_total is a valid identifier: it starts with an underscore and contains no spaces or punctuation.",
+"i++ yields 5 then increments to 6; ++i increments to 7 before assigning b, so the final values are 5, 7, 7.",
+"A do/while loop tests its condition after the body, so the body always runs at least once.",
+"Without break, execution falls through into the next case until it reaches a break or the switch ends.",
+"&& is the logical AND operator; & is bitwise AND for integer operands.",
+"Array indices start at zero, so an array of five elements ends at index 5 - 1 = 4.",
+"continue skips the remaining statements in the current iteration and proceeds to the next iteration.",
+"A prototype declares a function's interface so the compiler knows its name and parameter/return types before use.",
+"An int& parameter is an alias for the argument, so assigning to it changes the original variable.",
+"The omitted second argument uses its default value 2, therefore divide(12) returns 12 / 2 = 6.",
+"Overloads must have different parameter lists. Changing only a return type or parameter name is insufficient.",
+"Default arguments must be trailing: once a parameter has a default, every parameter to its right must also have one.",
+"A local variable exists only within its declaring function or block, so other functions cannot access it directly.",
+"A static local is initialized once and retains its value between function calls.",
+"The parameter a is a by-value copy, so changing it does not change x; x remains 5.",
+"Reference parameters alias the caller's variables and let a function write multiple results back to them.",
+"&x is the address-of operator, so it produces x's memory address.",
+"p points to num, and *p accesses the object at that address; assigning 20 through it changes num.",
+"Dereferencing a null pointer has undefined behavior; a program may crash, and it is never a valid way to read a value.",
+"Pointer arithmetic advances by elements: vals + 1 points to the second element, whose value is 7.",
+"A float object's address must be held by a float pointer, not an int pointer; the other declarations have matching types.",
+"The arrow operator accesses a member through a pointer; dot is used for an object itself.",
+"A struct can group fields of different types, while every element of a built-in array has the same type.",
+"Memory allocated with new[] must be released with delete[] so the matching array deallocation is used.",
+"e1 is an object, and the nested emp_address and city members are accessed with dot at each level.",
+"Passing a struct by value copies it, so changes to the function's parameter do not modify the original.",
+"In most expressions an array name converts to a pointer to its first element, but the array itself is not a pointer variable.",
+"Structured programming is organized around functions; object-oriented programming organizes behavior and data around classes.",
+"At larger scale, structured programs can be harder to reuse and map to real-world entities than object-oriented designs.",
+"The four OOP building blocks are classes, attributes, methods, and objects; the four pillars are a different list.",
+"A class is the blueprint/type; each object is an instance created from that blueprint.",
+"Attributes represent an entity's data or properties; methods describe what it can do.",
+"Procedural and object-oriented programming are both imperative paradigms because they describe commands that change program state.",
+"Abstraction exposes the essential operations while hiding implementation details.",
+"Encapsulation bundles data with its methods and controls access to the data.",
+"Function overloading is resolved from the call's parameter types at compile time; virtual dispatch is runtime polymorphism.",
+"Class members are private by default, while struct members are public by default.",
+"The leading :: is the global scope resolution operator, so ::x refers to the global x hidden by a local x.",
+"A protected member can be accessed by its class and derived classes, but not by arbitrary outside code.",
+"Each object has its own instance data; objects of the class use the same member-function definitions.",
+"Passing by reference makes the parameter an alias, so modifications remain in the caller's object.",
+"HumanBeing is the base (parent) class and Male is a derived (child) class in this relationship.",
+"Constructors run as part of object initialization; they are not called like ordinary member functions on an existing object.",
+"A destructor uses a tilde followed by the class name, so Car's destructor is ~Car().",
+"An object created with new is destroyed when the matching delete expression is applied.",
+"Local objects are destroyed in reverse construction order: m2 is destroyed before m1.",
+"CRectangle rectb(); is parsed as a function declaration (the most-vexing parse), not a default-constructed object.",
+"Declaring a parameterized constructor suppresses the compiler-generated default constructor, so CRectangle r; is invalid unless a default constructor is also provided.",
+"Default argument values belong in the declaration/prototype and are visible at call sites.",
+"A setter can validate input and preserve class invariants before changing private state.",
+"A copy constructor takes a const reference to another object of the same class: A(const A& obj).",
+"A destructor releases resources owned by an object, such as dynamically allocated memory, to prevent leaks."
+];
+const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;");
+const tabs=document.getElementById("tabs"),m=document.getElementById("m");
+function build(){
+ m.insertAdjacentHTML("afterbegin",`<p id="search-summary" class="source-note" aria-live="polite"></p>`);
+ L.forEach(([id,t,s])=>{
+  m.insertAdjacentHTML("beforeend",`<section id="s-${id}" role="tabpanel" aria-labelledby="tab-${id}" tabindex="0"><h2>Lecture ${id[1]}: ${t}</h2><p class="source-note">Source: Dr. Mona Shouman’s Lecture ${id[1]} slides. Slide numbers are not included in this study copy; check the original deck for slide-specific details.</p><div class="kp"><b>Key points</b><ul>${KP[id].map(k=>`<li>${k}</li>`).join("")}</ul></div><button class="sh ctl" data-all="1" type="button" aria-pressed="true">Expand / collapse all sections</button>${s.map(([h,b],i)=>`<details id="detail-${id}-${i}" open><summary>${h}</summary><div>${b}</div></details>`).join("")}</section>`);
+ });
+ let multipleChoice=`<h3>Multiple choice (${M.length})</h3>`;
+ M.forEach(([t,o,a],i)=>{
+  const lecture=GR.find(x=>i+1>=x[1]&&i+1<=x[2])[0];
+  if(GR.some(([,start])=>i+1===start))multipleChoice+=`<h4 class="lh" data-lecture-heading="${lecture}">Lecture ${lecture[1]}</h4>`;
+  multipleChoice+=`<div class="q" id="question-mcq-${i+1}" data-category="mcq" data-lecture="${lecture}" data-a="${a}" data-question="${i+1}"><p>${i+1}. ${esc(t)}</p>${o.map((x,j)=>`<button class="o" type="button" data-j="${j}" aria-pressed="false" aria-describedby="feedback-q-${i+1}">${String.fromCharCode(65+j)}. ${esc(x)}</button>`).join("")}<div class="ex feedback" id="feedback-q-${i+1}" role="status" aria-live="polite">${esc(MCQ_EXPLANATIONS[i])}</div></div>`});
+ multipleChoice+=`<p class="filter-empty" hidden>No questions match these filters.</p>`;
+ let errorCorrection=`<h3>Error correction (${E.length})</h3>`;
+ E.forEach(([c,a],i)=>{errorCorrection+=`<div class="q" id="question-errors-${i+1}" data-category="errors" data-lecture="${ERROR_LECTURES[i]}"><p>E${i+1}. Find the error(s)</p><pre><code>${esc(c)}</code></pre><button class="sh" type="button" aria-expanded="false" aria-controls="reveal-e-${i+1}">Show answer</button><div class="ex" id="reveal-e-${i+1}">${esc(a)}</div></div>`});
+ errorCorrection+=`<p class="filter-empty" hidden>No questions match this lecture.</p>`;
+ let outputQuestions=`<h3>What is the output? (${O.length})</h3>`;
+ O.forEach(([c,a],i)=>{outputQuestions+=`<div class="q" id="question-output-${i+1}" data-category="output" data-lecture="${OUTPUT_LECTURES[i]}"><p>O${i+1}. What is printed?</p><pre><code>${esc(c)}</code></pre><button class="sh" type="button" aria-expanded="false" aria-controls="reveal-o-${i+1}">Show answer</button><div class="ex" id="reveal-o-${i+1}"><pre><code>${esc(a)}</code></pre></div></div>`});
+ outputQuestions+=`<p class="filter-empty" hidden>No questions match this lecture.</p>`;
+ let codingQuestions=`<h3>Coding questions (${C.length})</h3>`;
+ C.forEach(([t,c],i)=>{codingQuestions+=`<div class="q" id="question-coding-${i+1}" data-category="coding" data-lecture="${CODING_LECTURES[i]}"><p>C${i+1}. ${esc(t)}</p><button class="sh" type="button" aria-expanded="false" aria-controls="reveal-c-${i+1}">Show model solution</button><div class="ex" id="reveal-c-${i+1}"><pre><code>${esc(c)}</code></pre></div></div>`});
+ codingQuestions+=`<p class="filter-empty" hidden>No questions match this lecture.</p>`;
+ const tips=`<h3>Last-minute exam tips and traps</h3><div class="kp"><ul>${TIPS.map(k=>`<li>${esc(k)}</li>`).join("")}</ul></div>`;
+ const mockExam=`<div class="mock-setup"><p>Choose a length for a randomly selected practice exam. Questions are drawn from all six lectures.</p><label for="mock-count">Questions</label> <select id="mock-count" class="mock-count"><option value="10">10 questions</option><option value="20">20 questions</option><option value="${M.length}">All ${M.length} questions</option></select> <button id="mock-start" class="sh" type="button">Start mock exam</button></div><div id="mock-stage" aria-live="polite"></div>`;
+ const questionTypes=[["mcq","Multiple choice",multipleChoice],["errors","Error correction",errorCorrection],["output","Output",outputQuestions],["coding","Coding",codingQuestions],["mock","Mock exam",mockExam],["tips","Exam tips",tips]];
+ let q=`<section id="s-Q" role="tabpanel" aria-labelledby="tab-Q" tabindex="0"><h2>Practice questions</h2><p class="source-note">These are practice questions based on the lecture topics, not quoted slide questions.</p><div class="question-filters"><label for="lecture-filter">Filter by lecture<select id="lecture-filter"><option value="all">All lectures</option>${L.map(([id])=>`<option value="${id}">Lecture ${id[1]}</option>`).join("")}</select></label><button id="review-wrong" class="sh" type="button" aria-pressed="false">Review wrong answers</button><span id="filter-status" class="filter-status" role="status" aria-live="polite"></span></div><p>Practice score: <span id="sc" role="status" aria-live="polite">0 / ${M.length}</span> <button id="reset-quiz" class="sh" type="button">Reset practice progress</button></p><div class="question-tabs" role="tablist" aria-label="Question types">`;
+ questionTypes.forEach(([id,label],i)=>{q+=`<button class="question-tab" id="question-tab-${id}" type="button" role="tab" aria-controls="question-panel-${id}" aria-selected="${i===0}" tabindex="${i===0?0:-1}">${label}</button>`});
+ q+=`</div>`;
+ questionTypes.forEach(([id,,content],i)=>{q+=`<div class="question-panel${i===0?" on":""}" id="question-panel-${id}" role="tabpanel" aria-labelledby="question-tab-${id}" tabindex="0"${i===0?"":" hidden"}>${content}</div>`});
+ q+=`</section>`;
+ m.insertAdjacentHTML("beforeend",q);
+ [...L.map(x=>[x[0],x[0]]),["Q","Questions"]].forEach(([id,n],i)=>{const b=document.createElement("button");b.id=`tab-${id}`;b.textContent=n=="Questions"?n:n.replace("L","Lecture ");b.setAttribute("role","tab");b.setAttribute("aria-controls",`s-${id}`);b.setAttribute("aria-selected","false");b.tabIndex=-1;b.dataset.id=id;b.onclick=()=>{location.hash=id.toLowerCase()};tabs.appendChild(b)});
+}
+function show(){
+ let id=(location.hash||"#l1").slice(1).toUpperCase();if(!document.getElementById("s-"+id))id="L1";
+ document.querySelectorAll("section").forEach(s=>s.classList.toggle("on",s.id=="s-"+id));
+ tabs.querySelectorAll("button").forEach(b=>{const selected=b.dataset.id==id;b.setAttribute("aria-selected",String(selected));b.tabIndex=selected?0:-1});
+ window.scrollTo(0,0);
+}
+build();
+tabs.addEventListener("keydown",e=>{
+ const buttons=[...tabs.querySelectorAll('[role="tab"]')],current=buttons.indexOf(document.activeElement);
+ let next=-1;
+ if(e.key==="ArrowRight")next=(current+1)%buttons.length;
+ else if(e.key==="ArrowLeft")next=(current-1+buttons.length)%buttons.length;
+ else if(e.key==="Home")next=0;
+ else if(e.key==="End")next=buttons.length-1;
+ if(next>=0){e.preventDefault();buttons[next].focus();buttons[next].click()}
+});
+const questionTabs=document.querySelector(".question-tabs");
+questionTabs.addEventListener("click",e=>{
+ const tab=e.target.closest('[role="tab"]');if(!tab)return;
+ questionTabs.querySelectorAll('[role="tab"]').forEach(button=>{const selected=button===tab;button.setAttribute("aria-selected",String(selected));button.tabIndex=selected?0:-1});
+ document.querySelectorAll(".question-panel").forEach(panel=>{const selected=panel.id===tab.getAttribute("aria-controls");panel.hidden=!selected;panel.classList.toggle("on",selected)});
+ if(tab.id!=="question-tab-mcq"&&reviewWrongOnly){reviewWrongOnly=false;document.getElementById("review-wrong").setAttribute("aria-pressed","false");document.getElementById("review-wrong").textContent="Review wrong answers"}
+ refreshQuestionFilter();
+});
+questionTabs.addEventListener("keydown",e=>{
+ const buttons=[...questionTabs.querySelectorAll('[role="tab"]')],current=buttons.indexOf(document.activeElement);
+ let next=-1;
+ if(e.key==="ArrowRight")next=(current+1)%buttons.length;
+ else if(e.key==="ArrowLeft")next=(current-1+buttons.length)%buttons.length;
+ else if(e.key==="Home")next=0;
+ else if(e.key==="End")next=buttons.length-1;
+ if(next>=0){e.preventDefault();buttons[next].focus();buttons[next].click()}
+});
+document.querySelectorAll("section svg").forEach(s=>{const d=document.createElement("div");d.className="sv";s.replaceWith(d);d.appendChild(s);s.style.minWidth=Math.min(s.viewBox.baseVal.width,640)+"px"});
+const STORAGE_KEY="set211-study-progress";
+let progress={};
+try{
+ const saved=localStorage.getItem(STORAGE_KEY);
+ if(saved){const parsed=JSON.parse(saved);if(parsed&&typeof parsed==="object"&&!Array.isArray(parsed))progress=parsed;else console.error("Saved quiz progress has an invalid format.");}
+}catch(error){console.error("Could not load saved quiz progress.",error)}
+const saveProgress=()=>{
+ try{localStorage.setItem(STORAGE_KEY,JSON.stringify(progress))}
+ catch(error){console.error("Could not save quiz progress.",error)}
+};
+let score=0;
+document.querySelectorAll(".q[data-question]").forEach(q=>{
+ const saved=progress[q.dataset.question];
+ if(!saved||!Number.isInteger(saved.choice)||saved.choice<0||saved.choice>=q.querySelectorAll(".o").length)return;
+ const options=q.querySelectorAll(".o");
+ if(saved.correct===true&&saved.choice===+q.dataset.a){
+  score++;q.dataset.done="true";options.forEach((option,index)=>{option.disabled=true;option.setAttribute("aria-pressed",String(index===saved.choice));if(index===+q.dataset.a)option.classList.add("ok")});
+  q.querySelector(".ex").classList.add("on");
+ }else if(saved.correct===false){
+  options[saved.choice].classList.add("no");options[saved.choice].setAttribute("aria-pressed","true");q.querySelector(".ex").textContent="Not quite. Try another answer.";q.querySelector(".ex").classList.add("wrong");
+ }
+});
+let reviewWrongOnly=false;
+const refreshQuestionFilter=()=>{
+ const lecture=document.getElementById("lecture-filter").value;
+ const activePanel=document.querySelector(".question-panel.on");
+ const cards=activePanel?[...activePanel.querySelectorAll(".q[data-lecture]")]:[];
+ let visible=0;
+ cards.forEach(card=>{
+  const saved=card.dataset.question?progress[card.dataset.question]:null;
+  const isWrong=card.dataset.category==="mcq"&&saved&&saved.correct===false;
+  const showLecture=lecture==="all"||card.dataset.lecture===lecture;
+  const showWrong=!reviewWrongOnly||(activePanel.id==="question-panel-mcq"&&isWrong);
+  card.hidden=!(showLecture&&showWrong);
+  if(!card.hidden)visible++;
+ });
+ activePanel?.querySelectorAll(".lh[data-lecture-heading]").forEach(heading=>{
+  const hasVisibleQuestion=[...activePanel.querySelectorAll(`.q[data-lecture="${heading.dataset.lecture}"]`)].some(card=>!card.hidden);
+  heading.hidden=!hasVisibleQuestion;
+ });
+ const empty=activePanel?.querySelector(".filter-empty");
+ if(empty)empty.hidden=visible!==0;
+ const status=document.getElementById("filter-status");
+ if(reviewWrongOnly&&activePanel.id==="question-panel-mcq")status.textContent=`Showing ${visible} question${visible===1?"":"s"} answered incorrectly and available to retry.`;
+ else if(lecture!=="all"&&cards.length)status.textContent=`Showing ${visible} question${visible===1?"":"s"} from Lecture ${lecture[1]}.`;
+ else status.textContent="";
+};
+document.getElementById("lecture-filter").addEventListener("change",refreshQuestionFilter);
+document.getElementById("review-wrong").addEventListener("click",e=>{
+ reviewWrongOnly=!reviewWrongOnly;
+ e.currentTarget.setAttribute("aria-pressed",String(reviewWrongOnly));
+ e.currentTarget.textContent=reviewWrongOnly?"Show all questions":"Review wrong answers";
+ if(reviewWrongOnly)document.getElementById("question-tab-mcq").click();
+ refreshQuestionFilter();
+});
+document.getElementById("sc").textContent=score+" / "+M.length;
+refreshQuestionFilter();
+m.addEventListener("click",e=>{
+ if(e.target.closest(".question-tab"))return;
+ if(e.target.closest("#reset-quiz")){progress={};score=0;document.getElementById("sc").textContent="0 / "+M.length;document.querySelectorAll(".q[data-question]").forEach(q=>{delete q.dataset.done;q.querySelectorAll(".o").forEach(o=>{o.disabled=false;o.classList.remove("ok","no");o.setAttribute("aria-pressed","false")});q.querySelector(".ex").textContent=MCQ_EXPLANATIONS[+q.dataset.question-1];q.querySelector(".ex").classList.remove("on","wrong")});reviewWrongOnly=false;document.getElementById("review-wrong").setAttribute("aria-pressed","false");document.getElementById("review-wrong").textContent="Review wrong answers";refreshQuestionFilter();saveProgress();return}
+ const o=e.target.closest(".o");
+ if(o){const q=o.closest(".q");if(q.dataset.done)return;const question=q.dataset.question,choice=+o.dataset.j,a=+q.dataset.a;
+  q.querySelectorAll(".o").forEach(x=>{x.classList.remove("no");x.setAttribute("aria-pressed","false")});q.querySelector(".ex").classList.remove("wrong");
+  o.setAttribute("aria-pressed","true");
+  if(choice===a){score++;q.dataset.done="true";q.querySelectorAll(".o").forEach(x=>{x.disabled=true;if(+x.dataset.j===a)x.classList.add("ok")});q.querySelector(".ex").textContent=MCQ_EXPLANATIONS[+question-1];q.querySelector(".ex").classList.add("on");progress[question]={choice,correct:true};document.getElementById("sc").textContent=score+" / "+M.length}
+  else{o.classList.add("no");q.querySelector(".ex").classList.add("wrong");q.querySelector(".ex").textContent="Not quite. Try another answer.";progress[question]={choice,correct:false}}
+  saveProgress();refreshQuestionFilter();return}
+ const s=e.target.closest(".sh");if(s&&s.dataset.all){const d=[...s.parentElement.querySelectorAll("details")],open=d.some(x=>!x.open);d.forEach(x=>x.open=open);s.setAttribute("aria-pressed",String(open))}
+ else if(s&&s.nextElementSibling&&s.nextElementSibling.classList.contains("ex")){const revealed=s.nextElementSibling.classList.toggle("on");s.setAttribute("aria-expanded",String(revealed))}
+});
+const searchInput=document.getElementById("site-search");
+const searchResults=document.getElementById("search-results");
+const searchSummary=document.getElementById("search-summary");
+searchInput.addEventListener("input",()=>{
+ const query=searchInput.value.trim().toLocaleLowerCase();
+ searchResults.replaceChildren();
+ if(query.length<2){searchResults.hidden=true;searchSummary.textContent="";return}
+ const matches=[];
+ document.querySelectorAll("section[id^='s-L'] details").forEach(detail=>{
+  if(detail.innerText.toLocaleLowerCase().includes(query))matches.push({target:detail,title:detail.querySelector("summary")?.innerText||"Lecture notes",category:"Lecture notes"});
+ });
+ document.querySelectorAll(".q[data-lecture]").forEach(card=>{
+  if(card.innerText.toLocaleLowerCase().includes(query))matches.push({target:card,title:card.querySelector("p")?.innerText||"Practice question",category:`Lecture ${card.dataset.lecture[1]} · ${card.dataset.category}`});
+ });
+ const shown=matches.slice(0,30);
+ searchSummary.textContent=`${matches.length} result${matches.length===1?"":"s"} for “${searchInput.value.trim()}”${matches.length>30?" (showing the first 30)":""}.`;
+ if(!shown.length){searchResults.textContent="No matching notes or questions.";searchResults.hidden=false;return}
+ shown.forEach(match=>{
+  const button=document.createElement("button");
+  button.type="button";button.className="search-result";button.dataset.target=match.target.id;
+  button.textContent=(match.title||"").replace(/\s+/g," ").slice(0,150);
+  const small=document.createElement("small");small.textContent=match.category;button.append(small);
+  searchResults.append(button);
+ });
+ searchResults.hidden=false;
+});
+searchResults.addEventListener("click",e=>{
+ const button=e.target.closest(".search-result");if(!button)return;
+ const target=document.getElementById(button.dataset.target);if(!target)return;
+ const section=target.closest("section");
+ if(target.matches("details"))target.open=true;
+ if(target.matches(".q")){
+  document.getElementById("lecture-filter").value="all";
+  reviewWrongOnly=false;
+  document.getElementById("review-wrong").setAttribute("aria-pressed","false");
+  document.getElementById("review-wrong").textContent="Review wrong answers";
+  const category=target.dataset.category;
+  if(category)document.getElementById(`question-tab-${category}`).click();
+  refreshQuestionFilter();
+ }
+ location.hash=section.id.slice(2).toLowerCase();
+ searchResults.hidden=true;
+ setTimeout(()=>target.scrollIntoView({behavior:"smooth",block:"start"}),100);
+});
+const mockPanel=document.getElementById("question-panel-mock");
+const mockStage=document.getElementById("mock-stage");
+let mockQuestions=[];
+let mockAnswers=[];
+let mockSubmitted=false;
+mockPanel.addEventListener("click",e=>{
+ if(e.target.closest("#mock-start")){
+  const count=Number(document.getElementById("mock-count").value);
+  if(!Number.isInteger(count)||count<1||count>M.length){console.error("Invalid mock exam question count.");return}
+  const shuffled=Array.from({length:M.length},(_,i)=>i);
+  for(let i=shuffled.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[shuffled[i],shuffled[j]]=[shuffled[j],shuffled[i]]}
+  mockQuestions=shuffled.slice(0,count);
+  mockAnswers=Array(count).fill(null);mockSubmitted=false;
+  mockStage.innerHTML=mockQuestions.map((questionIndex,index)=>{
+   const [text,options]=M[questionIndex];
+   return `<div class="mock-question" data-mock-index="${index}"><h4>${index+1}. ${esc(text)}</h4>${options.map((option,choice)=>`<button class="mock-option" type="button" data-choice="${choice}" aria-pressed="false">${String.fromCharCode(65+choice)}. ${esc(option)}</button>`).join("")}<div class="ex" id="mock-explanation-${index}"></div></div>`;
+  }).join("")+`<p id="mock-feedback" role="status" aria-live="polite"></p><button id="mock-submit" class="sh" type="button">Submit exam</button><div id="mock-results"></div>`;
+  mockStage.querySelector(".mock-option")?.focus();
+  return;
+ }
+ const option=e.target.closest(".mock-option");
+ if(option&&!mockSubmitted){
+  const question=option.closest(".mock-question"),index=+question.dataset.mockIndex;
+  mockAnswers[index]=+option.dataset.choice;
+  question.querySelectorAll(".mock-option").forEach(button=>button.setAttribute("aria-pressed",String(button===option)));
+  document.getElementById("mock-feedback").textContent="";
+  return;
+ }
+ if(e.target.closest("#mock-submit")&&!mockSubmitted){
+  if(mockAnswers.some(answer=>answer===null)){document.getElementById("mock-feedback").textContent="Answer every question before submitting.";return}
+  mockSubmitted=true;
+  let correctCount=0;
+  mockQuestions.forEach((questionIndex,index)=>{
+   const [,options,answer]=M[questionIndex],question=mockStage.querySelector(`[data-mock-index="${index}"]`);
+   const correct=mockAnswers[index]===answer;if(correct)correctCount++;
+   question.querySelectorAll(".mock-option").forEach((button,choice)=>{button.disabled=true;if(choice===answer)button.classList.add("correct");else if(choice===mockAnswers[index])button.classList.add("incorrect")});
+   const explanation=question.querySelector(".ex");
+   explanation.textContent=`${correct?"Correct. ":"Incorrect. Correct answer: "+String.fromCharCode(65+answer)+". "+options[answer]+". "}${MCQ_EXPLANATIONS[questionIndex]}`;
+   explanation.classList.add("on");
+  });
+  document.getElementById("mock-feedback").textContent=`Exam complete: ${correctCount} / ${mockQuestions.length} correct (${Math.round(correctCount/mockQuestions.length*100)}%).`;
+  document.getElementById("mock-results").innerHTML=`<div class="mock-results"><h4>Answer review</h4><p>Correct: ${correctCount} · Incorrect: ${mockQuestions.length-correctCount}</p><button id="mock-start-again" class="sh" type="button">Start another exam</button></div>`;
+  return;
+ }
+ if(e.target.closest("#mock-start-again"))document.getElementById("mock-start").click();
+});
+const backToTop=document.getElementById("back-to-top");
+addEventListener("scroll",()=>{backToTop.hidden=scrollY<400},{passive:true});
+backToTop.addEventListener("click",()=>window.scrollTo({top:0,behavior:"smooth"}));
+addEventListener("hashchange",show);show();
+</script>
+</body>
+</html>
